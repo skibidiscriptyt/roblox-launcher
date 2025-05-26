@@ -1,66 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Executor Roblox</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Executor Roblox Launcher</title>
   <style>
     body {
       font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .rainbow {
+      font-weight: bold;
+      background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 1rem;
+      margin-top: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       text-align: center;
-      margin-top: 50px;
-      background-color: #f4f4f4;
+      max-width: 400px;
+      width: 100%;
     }
     input {
+      width: 80%;
       padding: 10px;
-      width: 300px;
-      font-size: 16px;
-      margin: 10px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
     }
     button {
       padding: 10px 20px;
-      font-size: 16px;
       background-color: #007bff;
       color: white;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
       cursor: pointer;
+      font-size: 1rem;
     }
     button:hover {
       background-color: #0056b3;
     }
-    .rainbow {
-      font-weight: bold;
-      font-size: 18px;
-      background: linear-gradient(to right, red, orange, yellow, green, blue, purple);
-      -webkit-background-clip: text;
-      color: transparent;
-      margin-top: 20px;
-    }
   </style>
 </head>
 <body>
-
   <h1>Welcome to Executor Roblox</h1>
-  <p>Enter a Roblox Game ID and click Play to open in Roblox or Delta:</p>
-
-  <input type="text" id="gameIdInput" placeholder="Paste Game ID here (e.g., 2753915549)" />
-  <br>
-  <button onclick="openGame()">Play in Roblox</button>
-
-  <p class="rainbow">MADE BY: @SkibidiScript</p>
+  <p>Paste a Game ID and click play</p>
+  <div class="card">
+    <input type="text" id="placeId" placeholder="Enter Game Place ID (e.g. 14282329123)" />
+    <br />
+    <button onclick="openGame()" id="launchBtn">Open in Roblox</button>
+  </div>
+  <div class="rainbow">MADE BY: @SkibidiScript</div>
 
   <script>
     function openGame() {
-      const gameId = document.getElementById("gameIdInput").value.trim();
-      if (gameId) {
-        const robloxUrl = `https://www.roblox.com/games/${gameId}`;
-        window.open(robloxUrl, '_blank');
+      const placeId = document.getElementById("placeId").value.trim();
+      if (!placeId) {
+        alert("Please enter a valid Place ID");
+        return;
+      }
+
+      const deltaInstalled = navigator.userAgent.includes("Delta");
+      const ios = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      const android = /Android/.test(navigator.userAgent);
+
+      let url = "https://www.roblox.com/games/" + placeId;
+
+      if (deltaInstalled || (!ios && !android)) {
+        url = `roblox://placeID=${placeId}`;
+      }
+
+      window.location.href = url;
+    }
+
+    window.onload = () => {
+      const deltaInstalled = navigator.userAgent.includes("Delta");
+      const ios = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      const android = /Android/.test(navigator.userAgent);
+      const btn = document.getElementById("launchBtn");
+
+      if (deltaInstalled) {
+        btn.innerText = "Open in Delta Version Roblox";
+      } else if (ios || android) {
+        btn.innerText = "Open in Normal Roblox";
       } else {
-        alert("Please enter a valid Game ID.");
+        btn.innerText = "Not supported on this device";
+        btn.disabled = true;
       }
     }
   </script>
-
 </body>
 </html>
