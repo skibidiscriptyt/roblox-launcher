@@ -1,27 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Roblox Executor Launcher</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Executor Roblox</title>
   <style>
-    body { font-family: Arial; background: #f2f2f2; text-align: center; padding: 40px; }
-    .game { background: white; padding: 20px; margin: 10px auto; border-radius: 10px; width: 300px; box-shadow: 0 0 10px #ccc; }
-    button { background: #00a2ff; border: none; color: white; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+      background-color: #f4f4f4;
+    }
+    input {
+      padding: 10px;
+      width: 300px;
+      font-size: 16px;
+      margin: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .rainbow {
+      font-weight: bold;
+      font-size: 18px;
+      background: linear-gradient(to right, red, orange, yellow, green, blue, purple);
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
-  <h1>Welcome to Executor Roblox</h1>
-  <p>Click Play to open game in Roblox or Delta.</p>
 
-  <div class="game">
-    <h2>Grow a Garden 🌱</h2>
-    <p>Place ID: 14282329123</p>
-    <button onclick="launchGame(14282329123)">Play in Roblox</button>
-  </div>
+  <h1>Welcome to Executor Roblox</h1>
+  <p>Enter a Roblox Game ID and click Play to open in Roblox or Delta:</p>
+
+  <input type="text" id="gameIdInput" placeholder="Paste Game ID here (e.g., 2753915549)" />
+  <br>
+  <button onclick="openGame()">Play in Roblox</button>
+
+  <p class="rainbow">MADE BY: @SkibidiScript</p>
 
   <script>
-    function launchGame(placeId) {
-      window.location.href = `roblox-player://launch?placeId=${placeId}`;
+    function openGame() {
+      const gameId = document.getElementById("gameIdInput").value.trim();
+      if (gameId) {
+        const robloxUrl = `https://www.roblox.com/games/${gameId}`;
+        window.open(robloxUrl, '_blank');
+      } else {
+        alert("Please enter a valid Game ID.");
+      }
     }
   </script>
+
 </body>
 </html>
