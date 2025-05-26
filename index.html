@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Roblox Executor Launcher</title>
+  <style>
+    body { font-family: Arial; background: #f2f2f2; text-align: center; padding: 40px; }
+    .game { background: white; padding: 20px; margin: 10px auto; border-radius: 10px; width: 300px; box-shadow: 0 0 10px #ccc; }
+    button { background: #00a2ff; border: none; color: white; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Welcome to Executor Roblox</h1>
+  <p>Click Play to open game in Roblox or Delta.</p>
+
+  <div class="game">
+    <h2>Grow a Garden 🌱</h2>
+    <p>Place ID: 14282329123</p>
+    <button onclick="launchGame(14282329123)">Play in Roblox</button>
+  </div>
+
+  <script>
+    function launchGame(placeId) {
+      window.location.href = `roblox-player://launch?placeId=${placeId}`;
+    }
+  </script>
+</body>
+</html>
